@@ -83,14 +83,20 @@ function Dashboard() {
     if (!dashboardData) {
       return
     }
+
+    if (dashboardData?.user_wallet?.roi_wallet == 0) {
+      return
+    }
+
     const total = (dashboardData?._4x_pending) + (dashboardData?._4x_income)
     const percentage = (dashboardData?._4x_income / total) * 100;
 
+    console.log((0 / 0) * 100)
     if (percentage >= 85 && percentage < 100) {
       setShowModal2(true)
     }
 
-    if (percentage == 100) {
+    if (percentage == 100 || total == 0) {
       setShowModal3(true)
     }
     // console.log({ total, income: dashboardData?._4x_income, pending: dashboardData?._4x_pending, percentage })

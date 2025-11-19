@@ -259,7 +259,7 @@ function Profile() {
               <input
                 onChange={(e) => setAddress(e.target.value)}
                 value={address}
-                disabled
+                // disabled
                 type="text"
                 className="bg-[#26362C] rounded px-3 py-0.5"
               />
@@ -269,7 +269,7 @@ function Profile() {
               <input
                 onChange={(e) => setU2UAddress(e.target.value)}
                 value={U2UAddress}
-                disabled
+                // disabled
                 type="text"
                 className="bg-[#26362C] rounded px-3 py-0.5"
               />
