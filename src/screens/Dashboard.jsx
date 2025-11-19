@@ -26,6 +26,8 @@ function Dashboard() {
   const { dashboardData, setDashBoardData } = useDashboardStore();
 
   const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [showModal3, setShowModal3] = useState(false);
   const [title, setTitle] = useState("");
   const [msg, setMsg] = useState("");
 
@@ -76,6 +78,23 @@ function Dashboard() {
 
     fetchUserData();
   }, [user, isConnected]);
+
+  useEffect(() => {
+    if (!dashboardData) {
+      return
+    }
+    const total = (dashboardData?._4x_pending) + (dashboardData?._4x_income)
+    const percentage = (dashboardData?._4x_income / total) * 100;
+
+    if (percentage >= 85 && percentage < 100) {
+      setShowModal2(true)
+    }
+
+    if (percentage == 100) {
+      setShowModal3(true)
+    }
+    // console.log({ total, income: dashboardData?._4x_income, pending: dashboardData?._4x_pending, percentage })
+  }, [dashboardData])
 
   const Data = [
     {
@@ -202,6 +221,79 @@ function Dashboard() {
             <div className="flex justify-end">
               <button
                 onClick={() => setShowModal(false)}
+                className="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-medium rounded-lg shadow-md cursor-pointer transition"
+              >
+                Okay
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showModal2 && (
+        <div className="fixed z-30 bg-black/70 inset-0 pt-2">
+          <div className="w-full max-w-md sm:max-w-lg mx-auto bg-gradient-to-br from-[#0D1B2A] to-[#09182C] text-gray-200 shadow-xl rounded-2xl p-5 sm:p-6 border border-gray-700">
+            {/* Heading */}
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-2 h-7 bg-emerald-500 rounded-full"></div>
+              <h2 className="text-lg sm:text-xl font-semibold text-white">
+                Notice
+              </h2>
+            </div>
+
+            {/* Message */}
+            <div className="text-gray-300 leading-relaxed mb-5 text-sm sm:text-base">
+              {/* <span className="font-semibold text-emerald-400 block mb-2">
+                Important Update – Changes Effective from November 1, 2025
+              </span> */}
+              <p className="mt-2">Dear Delegator,</p>
+              <p className="mt-2">Congratulations! 🎉</p>
+              <p className="mt-2">You have reached 4.5× profit on your delegated amount.</p>
+              <p className="mt-2">Please activate your delegation as soon as possible.
+                If your account reaches 5.4× without activation, it may be deactivated and you could begin losing your accumulated income.</p>
+              <p className="mt-2">Best Regards,</p>
+              <p className="text-emerald-500">Team Asia Validator</p>
+            </div>
+
+            {/* Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowModal2(false)}
+                className="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-medium rounded-lg shadow-md cursor-pointer transition"
+              >
+                Okay
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {showModal3 && (
+        <div className="fixed z-30 bg-black/70 inset-0 pt-2">
+          <div className="w-full max-w-md sm:max-w-lg mx-auto bg-gradient-to-br from-[#0D1B2A] to-[#09182C] text-gray-200 shadow-xl rounded-2xl p-5 sm:p-6 border border-gray-700">
+            {/* Heading */}
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-2 h-7 bg-emerald-500 rounded-full"></div>
+              <h2 className="text-lg sm:text-xl font-semibold text-white">
+                Notice
+              </h2>
+            </div>
+
+            {/* Message */}
+            <div className="text-gray-300 leading-relaxed mb-5 text-sm sm:text-base">
+              {/* <span className="font-semibold text-emerald-400 block mb-2">
+                Important Update – Changes Effective from November 1, 2025
+              </span> */}
+              <p className="mt-2">Dear Delegator,</p>
+              <p className="mt-2">Congratulations! 🎉</p>
+              <p className="mt-2">You have reached 5.4× profit on your delegated amount.</p>
+              <p>Please activate your delegation to continue earning daily rewards.</p>
+              <p className="mt-2">Best Regards,</p>
+              <p className="text-emerald-500">Team Asia Validator</p>
+            </div>
+
+            {/* Button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowModal3(false)}
                 className="px-4 py-1.5 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white text-sm font-medium rounded-lg shadow-md cursor-pointer transition"
               >
                 Okay
