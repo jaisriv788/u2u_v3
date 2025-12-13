@@ -30,7 +30,7 @@ function ForgetPassword() {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center  bg-[#F2F2F2]">
+    <div className="h-screen flex justify-center items-center  bg-black ">
       <div className="bg-white shadow-xl p-4 max-w-100 rounded-xl">
         <img src={icon} alt="Logo" className="w-7 mx-auto my-3" />
         <div className="text-sm text-center">
@@ -39,8 +39,8 @@ function ForgetPassword() {
         </div>
 
         <div
-          className="flex items-center mt-3 rounded-full px-5 py-3 text-lg gap-3 
-             bg-white shadow-[inset_6px_6px_12px_#d1d1d1,inset_-6px_-6px_12px_#ffffff]"
+          className="flex border-gray-400 rounded border items-center mt-3  px-3 py-2 text-lg gap-3 
+             bg-white"
         >
           <FaRegUser className="text-gray-500" />
           <input
@@ -53,7 +53,7 @@ function ForgetPassword() {
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="my-4 bg-[#A32A91] text-white text-lg font-semibold py-2 rounded-full hover:bg-black transition ease-in-out duration-300 cursor-pointer w-full"
+          className="text-white w-full my-3 bg-[#38C66C] font-semibold py-2 rounded cursor-pointer border border-black hover:border-amber-400 transition ease-in-out duration-300"
         >
           {loading ? "Loading..." : "Submit"}
         </button>
