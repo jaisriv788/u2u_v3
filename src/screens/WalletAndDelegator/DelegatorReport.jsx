@@ -33,7 +33,7 @@ function DelegatorReport() {
               },
             }
           );
-          // console.log(response.data.data);
+          console.log(response.data.data);
           if (response.data.status === 200) {
             setData(response.data.data);
             setFilteredData(response.data.data);
@@ -146,6 +146,7 @@ function DelegatorReport() {
                 <th>Transaction Id</th>
                 <th>UserId</th>
                 <th>Activated By</th>
+                <th>Type</th>
                 <th>Package</th>
                 <th>Delegator Amount</th>
                 <th>Validator Platform Fee</th>
@@ -175,13 +176,14 @@ function DelegatorReport() {
                     <td className="flex gap-2 items-center text-nowrap">
                       {item.date != "-"
                         ? new Date(item.date).toLocaleString("en-GB", {
-                            hour12: false,
-                          })
+                          hour12: false,
+                        })
                         : "-"}
                     </td>
                     <td className="text-nowrap">{item.transaction_id}</td>
                     <td className="text-nowrap">{item.user_username}</td>
                     <td className="text-nowrap">{item.activated_by_name}</td>
+                    <td className="text-nowrap">{item.type[0].toUpperCase() + item.type.slice(1,)}</td>
                     <td className="text-nowrap">{item.package_name}</td>
                     <td className="text-nowrap">{item.delegator_amount}</td>
                     <td className="text-nowrap">{item.validator_fee}</td>
@@ -227,11 +229,10 @@ function DelegatorReport() {
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`px-2 cursor-pointer py-1 rounded ${
-                    currentPage === p
+                  className={`px-2 cursor-pointer py-1 rounded ${currentPage === p
                       ? "bg-green-400 text-white"
                       : "bg-[#26362C] text-gray-200 hover:bg-[#1F2C24]"
-                  }`}
+                    }`}
                 >
                   {p}
                 </button>

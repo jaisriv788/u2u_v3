@@ -25,13 +25,13 @@ const useConstStore = create(
       {
         name: "const-storage",
         getStorage: () => sessionStorage,
-        version: 16,
+        version: 17,
         migrate: (persistedState, version) => {
-          if (version < 16) {
+          if (version < 17) {
             return {
               ...persistedState,
-              baseUrl: "https://u2uglobal.xyz/superadmin/api/",
-              // baseUrl: "https://worldofsoftware.in/u2u_global/api/",
+              // baseUrl: "https://u2uglobal.xyz/superadmin/api/",
+              baseUrl: "https://u2uglobal.xyz/stage/stage_superadmin/api/",
             };
           }
           return persistedState;
