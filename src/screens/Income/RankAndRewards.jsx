@@ -31,7 +31,7 @@ function RankAndRewards() {
               },
             }
           );
-          // console.log(response.data.data);
+          console.log(response.data.data.list);
           if (response.data.status === 200) {
             setData(response.data.data.list);
             setFilteredData(response.data.data.list);
@@ -197,6 +197,8 @@ function RankAndRewards() {
                 <th>Date</th>
                 <th>Rank</th>
                 <th>Enroll Amount</th>
+                <th>Type</th>
+                <th>Reward</th>
               </tr>
             </thead>
             <tbody>
@@ -221,12 +223,14 @@ function RankAndRewards() {
                       {" "}
                       {item.created_at != "-"
                         ? new Date(item.created_at).toLocaleString("en-GB", {
-                            hour12: false,
-                          })
+                          hour12: false,
+                        })
                         : "-"}
                     </td>
                     <td className="text-nowrap">{item.rank_name}</td>
                     <td className="text-nowrap">$ {item.ramount}</td>
+                    <td className="text-nowrap">{item.reward_type[0].toUpperCase() + item.reward_type.slice(1,)}</td>
+                    <td className="text-nowrap">{item.description ?? "-"}</td>
                   </tr>
                 ))
               )}
@@ -257,11 +261,10 @@ function RankAndRewards() {
                 <button
                   key={p}
                   onClick={() => setCurrentPage(p)}
-                  className={`px-2 cursor-pointer py-1 rounded ${
-                    currentPage === p
-                      ? "bg-green-400 text-white"
-                      : "bg-[#26362C] text-gray-200 hover:bg-[#1F2C24]"
-                  }`}
+                  className={`px-2 cursor-pointer py-1 rounded ${currentPage === p
+                    ? "bg-green-400 text-white"
+                    : "bg-[#26362C] text-gray-200 hover:bg-[#1F2C24]"
+                    }`}
                 >
                   {p}
                 </button>
@@ -271,7 +274,7 @@ function RankAndRewards() {
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => p + 1)}
               className="px-2 cursor-pointer py-1 bg-[#26362C] rounded hover:bg-[#1F2C24] disabled:opacity-50"
-            > 
+            >
               Next
             </button>
           </div>

@@ -1,6 +1,6 @@
 import useUserStore from "../../store/userStore";
 
-function Intro() {
+function Intro({ address }) {
   const { user } = useUserStore();
   return (
     <div className="py-3 flex justify-between">
@@ -10,6 +10,7 @@ function Intro() {
           PROGRAM
         </div>
         <div className="text-sm">User ID: {user?.username}</div>
+        <div className="text-sm">Delegator Wallet Address: {address}</div>
       </div>
       <div className="text-sm self-end hidden sm:flex">Dashboard</div>
     </div>

@@ -4,16 +4,20 @@ import { FaCaretUp } from "react-icons/fa";
 import axios from "axios";
 import useConstStore from "../../store/constStore";
 import useUserStore from "../../store/userStore";
+import { useNavigate } from "react-router";
 // import useDashboardStore from "../../store/dashboardStore";
 
 function DetailedCards({ amount, title, children, show, balanceRoi }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModal2Open, setIsModal2Open] = useState(false);
+  const [reinvestmentModel, setReinvestmentModel] = useState(false);
   const [load, setLoad] = useState(false);
   const [loadTow, setLoadTwo] = useState(false);
   const { baseUrl, setMsg, setShowError, setShowSuccess } = useConstStore();
   const { user, token } = useUserStore();
   // const { dashboardData } = useDashboardStore();
+
+  const navigate = useNavigate();
 
   function showError(msg) {
     setMsg(msg);
@@ -32,6 +36,39 @@ function DetailedCards({ amount, title, children, show, balanceRoi }) {
       setShowSuccess(false);
     }, 7000);
   }
+
+  const handleSubmit2 = async () => {
+    setLoad(true);
+    try {
+      const response = await axios.post(
+        `${baseUrl}re_investment`,
+        {
+          user_id: user?.id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // console.log(response.data);
+      if (response.data.status == 200) {
+        showSuccess("Reinvestment Successful!");
+        navigate("/delegatorreport")
+      } else {
+        showError(response.data.msg);
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Transfer Failed!");
+    } finally {
+      setTimeout(() => {
+        setIsModalOpen(false);
+        setLoad(false);
+      }, 500);
+    }
+  };
 
   const handleSubmit = async () => {
     setLoad(true);
@@ -155,12 +192,48 @@ function DetailedCards({ amount, title, children, show, balanceRoi }) {
               ? "Already Claimed"
               : "Claim Daily Reward"}
           </button> */}
+          <button
+            onClick={() => setReinvestmentModel(true)}
+            className="bg-gradient-to-r w-3/4 md:w-1/2 lg:w-full font-semibold hover:text-black from-[#00D8FA] to-[#00FFA5] hover:from-[#00FFA5] hover:to-[#00D8FA] px-3 py-1.5 rounded-full cursor-pointer transition ease-in-out duration-300"
+          >
+            Reinvestment
+          </button>
         </div>
       )}
 
       {/* Modal */}
+      {reinvestmentModel && <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-40">
+        <div className="bg-[#0F0F1D] rounded-2xl p-6 w-96 flex flex-col gap-6 shadow-xl border border-[#1A1A2E]">
+          <h2 className="text-xl font-bold text-white text-center">
+            Confirm Reinvestment
+          </h2>
+          <p className="text-gray-300 text-center">
+            Are you sure you want to reinvest{" "}
+            <span className="font-semibold text-[#1FD022]">
+              ${balanceRoi}
+            </span>
+            ?
+          </p>
+          <div className="flex justify-center gap-4 mt-4">
+            <button
+              onClick={() => setReinvestmentModel(false)}
+              disabled={load}
+              className="px-5 py-2 cursor-pointer bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition font-medium"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSubmit2}
+              disabled={load}
+              className="px-5 py-2 cursor-pointer bg-gradient-to-r from-[#00D8FA] to-[#00FFA5] text-black font-semibold rounded-lg hover:from-[#00FFA5] hover:to-[#00D8FA] transition"
+            >
+              {load ? "Transfering..." : "Proceed"}
+            </button>
+          </div>
+        </div>
+      </div>}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-40">
+        <div className="fixed inset-0 bg-black/60 flex justify-center backdrop-blur-sm items-center z-40">
           <div className="bg-[#0F0F1D] rounded-2xl p-6 w-96 flex flex-col gap-6 shadow-xl border border-[#1A1A2E]">
             <h2 className="text-xl font-bold text-white text-center">
               Confirm Transfer

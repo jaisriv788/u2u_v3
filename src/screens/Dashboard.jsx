@@ -30,6 +30,7 @@ function Dashboard() {
   const [showModal3, setShowModal3] = useState(false);
   const [title, setTitle] = useState("");
   const [msg, setMsg] = useState("");
+  const [delegatorWalletAddress, setDeligatorWalletAddress] = useState("")
 
   useEffect(() => {
     setScreenLoading(true);
@@ -55,6 +56,8 @@ function Dashboard() {
             }),
           ]);
 
+          console.log({ dashboardRes, generalRes })
+          setDeligatorWalletAddress(generalRes.data.data.delegator_reward_wallet)
           // Handle dashboard response
           if (dashboardRes.data.status === 200) {
             setDashBoardData(dashboardRes.data.data);
@@ -91,7 +94,7 @@ function Dashboard() {
     const total = (dashboardData?._4x_pending) + (dashboardData?._4x_income)
     const percentage = (dashboardData?._4x_income / total) * 100;
 
-    console.log((0 / 0) * 100)
+    // console.log((0 / 0) * 100)
     if (percentage >= 85 && percentage < 100) {
       setShowModal2(true)
     }
@@ -309,7 +312,7 @@ function Dashboard() {
         </div>
       )}
       {/* <Marquee /> */}
-      <Intro />
+      <Intro address={delegatorWalletAddress} />
       <Suspense fallback={<Loader />}>
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-5">
           {Data.map((item, index) => (

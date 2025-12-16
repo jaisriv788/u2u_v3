@@ -50,6 +50,7 @@ const DelegatorLevelBonus = React.lazy(() =>
 const RankAndRewards = React.lazy(() =>
   import("./screens/Income/RankAndRewards")
 );
+const MonthlySalary = React.lazy(() => import("./screens/Income/MonthlySalary"));
 
 //delegator screens
 const DelegatorPPActivation = React.lazy(() =>
@@ -221,6 +222,7 @@ function App() {
               element={<DelegatorLevelBonus />}
             />
             <Route path="/rank&reward" element={<RankAndRewards />} />
+            <Route path="/monthlysalary" element={<MonthlySalary />} />
 
             {/*delegator route*/}
             <Route
