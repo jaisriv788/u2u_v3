@@ -15,5 +15,5 @@ export default defineConfig({
       filename: "bundle-analysis.html",
     }),
   ],
-  base: "/stage/app/",
+  base: "/app/",
 });

@@ -22,9 +22,9 @@ const useUserStore = create(
       {
         name: "user-storage",
         getStorage: () => sessionStorage,
-        version: 10,
+        version: 13,
         migrate: (persistedState, version) => {
-          if (version < 10) {
+          if (version < 13) {
             return {
               ...persistedState,
               user: null,

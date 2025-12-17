@@ -171,6 +171,12 @@ function DetailedCards({ amount, title, children, show, balanceRoi }) {
                 ? "Already Claimed"
                 : "Claim Daily Reward"}
             </button> */}
+            <button
+              onClick={() => setReinvestmentModel(true)}
+              className="bg-gradient-to-r w-3/4 md:w-1/2 lg:w-full font-semibold hover:text-black from-[#00D8FA] to-[#00FFA5] hover:from-[#00FFA5] hover:to-[#00D8FA] px-3 py-1.5 rounded-full cursor-pointer transition ease-in-out duration-300"
+            >
+              Reinvestment
+            </button>
           </div>
         )}
       </div>
